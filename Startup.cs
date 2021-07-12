@@ -30,17 +30,10 @@ namespace ws_test
                 app.UseDeveloperExceptionPage();
             }
             
+            app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseWebSockets();
-
-            // app.UseEndpoints(endpoints =>
-            // {
-            //     endpoints.MapGet("/", async context =>
-            //     {
-            //         await context.Response.WriteAsync("");
-            //     });
-            // });
 
             app.Use(async (context, next) =>
             {
@@ -70,7 +63,7 @@ namespace ws_test
         {
             int msgCounter = 0;
 
-            Console.WriteLine("websocket connected");
+            // Console.WriteLine("websocket connected");
             var buffer = new byte[1024 * 4];
 
             Task sendMsg(string message) 
@@ -89,7 +82,7 @@ namespace ws_test
                 await sendMsg($"Hello to you, too {++msgCounter}");
             }
             await webSocket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
-            Console.WriteLine($"websocket closed, {msgCounter} messages sent");
+            // Console.WriteLine($"websocket closed, {msgCounter} messages sent");
         }
     }
 }
